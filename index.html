@@ -1,213 +1,555 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MISHRA FAMILY | Pro</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
-    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>HAND CRICKET 26 | TITAN EDITION</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Bangers&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+
     <style>
-        :root { --gold: #D4AF37; --gold-l: #FFD700; --dark: #080808; --heart: #ff4757; }
-        
-        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--dark); background-image: radial-gradient(circle at top right, #1a1a1a, #080808); height: 100vh; display: flex; color: white; overflow: hidden; }
 
-        /* --- 🌟 UNIQUE ANIMATIONS 🌟 --- */
-        @keyframes entrance { 0% { opacity:0; transform: scale(1.1) rotateX(10deg); } 100% { opacity:1; transform: scale(1) rotateX(0); } }
-        @keyframes shine { 0% { background-position: -100px; } 100% { background-position: 200px; } }
-        @keyframes heartFly { 0% { bottom: 0; opacity: 1; transform: translateX(0) scale(1); } 100% { bottom: 200px; opacity: 0; transform: translateX(50px) scale(1.5); } }
+        :root {
 
-        /* Login Gateway */
-        #gate { position:fixed; inset:0; background:black; z-index:9999; display:flex; align-items:center; justify-content:center; perspective: 1000px; }
-        .gate-card { border: 2px solid var(--gold); padding: 50px; border-radius: 40px; text-align: center; background: rgba(15,15,15,0.9); width: 380px; box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); animation: entrance 1s ease-out; }
-        input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 15px; border: 1px solid #333; background: #000; color: white; outline: none; transition: 0.3s; }
-        input:focus { border-color: var(--gold); }
-        .btn-enter { width: 100%; padding: 15px; border-radius: 15px; border: none; background: linear-gradient(90deg, #D4AF37, #FFD700, #D4AF37); background-size: 200% 100%; animation: shine 3s linear infinite; color: black; font-weight: 900; cursor: pointer; margin-top: 15px; text-transform: uppercase; }
+            --cyan: #00d2ff; --green: #2ecc71; --gold: #d4af37;
 
-        /* Main App Layout */
-        nav { width: 280px; background: rgba(0,0,0,0.8); border-right: 1px solid rgba(255,255,255,0.1); padding: 40px 20px; display: flex; flex-direction: column; backdrop-filter: blur(20px); }
-        .logo { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 40px; text-align: center; margin-bottom: 50px; text-shadow: 0 0 10px rgba(212,175,55,0.5); }
-        
-        main { flex: 1; overflow-y: auto; padding: 40px; display: flex; flex-direction: column; align-items: center; background: url('https://www.transparenttextures.com/patterns/dark-matter.png'); }
-        
-        .post-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 650px; padding: 30px; border-radius: 35px; margin-bottom: 40px; transition: 0.4s; }
-        .post-box:focus-within { background: rgba(255,255,255,0.08); border-color: var(--gold); transform: translateY(-5px); }
-        textarea { width: 100%; border: none; outline: none; background: transparent; color: white; font-size: 18px; resize: none; min-height: 60px; }
-        .btn-p { background: var(--gold); color: black; padding: 10px 30px; border-radius: 15px; border: none; font-weight: 800; cursor: pointer; transition: 0.3s; }
+            --red: #ff3131; --bg: #010208; --glass: rgba(255, 255, 255, 0.05);
 
-        /* Card System */
-        .card { background: white; color: #111; width: 100%; max-width: 650px; padding: 25px; border-radius: 35px; margin-bottom: 30px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.3); transition: 0.4s; overflow: hidden; }
-        .card:hover { transform: translateY(-10px) rotateX(2deg); }
-        .card b { color: var(--gold); font-size: 18px; display: flex; align-items: center; gap: 8px; }
-        .card img { width: 100%; border-radius: 25px; margin-top: 15px; transition: 0.3s; }
+            --neon-blue: #00d2ff; --neon-gold: #d4af37;
 
-        /* Floating Hearts Animation */
-        .fly-heart { position: absolute; bottom: 20px; left: 30px; color: var(--heart); font-size: 20px; animation: heartFly 1.5s ease-out forwards; pointer-events: none; }
+        }
 
-        /* Like Button */
-        .actions { margin-top: 20px; display: flex; align-items: center; gap: 15px; padding-top: 15px; border-top: 1px solid #eee; }
-        .l-btn { cursor: pointer; font-size: 26px; transition: 0.3s; color: #ddd; position: relative; }
-        .l-btn.active { color: var(--heart); transform: scale(1.3); }
-        .l-count { font-weight: 800; color: #333; font-size: 14px; }
 
-        /* Chat Sidebar */
-        .chat-side { width: 360px; background: white; display: flex; flex-direction: column; border-left: 2px solid var(--gold); }
-        #chat-win { flex: 1; overflow-y: auto; background: #f0f2f5; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
-        .m { padding: 12px 18px; border-radius: 20px; font-size: 14px; max-width: 85%; color: black; box-shadow: 0 5px 10px rgba(0,0,0,0.05); transition: 0.3s; }
-        .m:hover { transform: scale(1.02); }
-        .me { background: #dcf8c6; align-self: flex-end; border-bottom-right-radius: 2px; }
 
-        #loading { display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); background: var(--gold); color: black; padding: 10px 40px; border-radius: 50px; font-weight: 900; z-index: 99999; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        @media (max-width: 1000px) { nav, .chat-side { display: none; } }
+        body, html { margin: 0; height: 100%; width: 100%; background: var(--bg); color: white; font-family: 'Orbitron', sans-serif; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+
+
+
+        .stadium { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% -20%, #1a2a44 0%, transparent 70%), radial-gradient(circle at 50% 120%, #0a111a 0%, #010208 100%); }
+
+
+
+        .console { position: relative; width: 95%; max-width: 500px; background: var(--glass); backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 30px; box-shadow: 0 40px 100px rgba(0,0,0,0.8); z-index: 10; }
+
+
+
+        .logo { font-family: 'Syncopate'; font-size: clamp(1.2rem, 5vw, 2.2rem); letter-spacing: 5px; font-weight: 900; background: linear-gradient(90deg, var(--cyan), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; text-align: center; }
+
+
+
+        /* --- COIN TOSS --- */
+
+        .coin-container { height: 100px; width: 100px; margin: 20px auto; perspective: 1000px; }
+
+        #coin { height: 100%; width: 100%; position: relative; transform-style: preserve-3d; transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+        .coin-face { position: absolute; height: 100%; width: 100%; border-radius: 50%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; font-weight: 900; border: 4px solid var(--gold); background: #111; font-size: 0.9rem; }
+
+        .heads { color: var(--gold); }
+
+        .tails { color: var(--cyan); border-color: var(--cyan); transform: rotateY(180deg); }
+
+        .flipping { animation: spin 0.2s linear infinite; }
+
+        @keyframes spin { 100% { transform: rotateY(360deg); } }
+
+
+
+        /* --- BUTTONS --- */
+
+        .btn-titan { background: linear-gradient(90deg, #d4af37, #f9e29c); border: none; color: black; padding: 18px; border-radius: 12px; font-family: 'Orbitron'; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 15px; }
+
+        .btn-titan:hover { transform: translateY(-3px); }
+
+        .btn-cyan { background: linear-gradient(90deg, var(--cyan), #80ebff); }
+
+
+
+        .score-box { border: 1px solid rgba(0, 210, 255, 0.2); border-radius: 20px; padding: 25px; background: rgba(255,255,255,0.03); margin: 20px 0; }
+
+        .num-btn { aspect-ratio: 1/1; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; font-size: 1.5rem; font-family: 'Bangers'; cursor: pointer; }
+
+        .num-btn:active { background: var(--cyan); color: black; }
+
+
+
+        #out-overlay, #result-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; display: none; flex-direction: column; align-items: center; justify-content: center; }
+
+       
+
+        .screen { display: none; }
+
+        .active { display: block; animation: zoomIn 0.4s ease-out; }
+
+        @keyframes zoomIn { from { opacity: 0; scale: 0.9; } to { opacity: 1; scale: 1; } }
+
     </style>
+
 </head>
+
 <body>
 
-    <div id="loading">✨ GOLDEN MAGIC...</div>
 
-    <div id="gate">
-        <div class="gate-card">
-            <h1>⚜️ MISHRA</h1>
-            <input type="text" id="u-n" placeholder="Your Golden Name">
-            <input type="password" id="u-p" placeholder="Portal Password">
-            <button class="btn-enter" onclick="openPortal()">UNSEAL PORTAL</button>
-        </div>
+
+    <div class="stadium"></div>
+
+
+
+    <div id="out-overlay">
+
+        <div style="font-family: 'Syncopate'; font-size: 5rem; color: var(--red); text-shadow: 0 0 20px var(--red);">OUT</div>
+
+        <div id="wicket-msg" style="letter-spacing: 5px; color: var(--cyan); margin-top: 20px;">WICKET!</div>
+
+        <button class="btn-titan" style="width: 200px; margin-top: 40px;" onclick="closeOut()">CONTINUE</button>
+
     </div>
 
-    <nav>
-        <div class="logo">MISHRA</div>
-        <div style="margin-top:auto; padding: 20px; background: rgba(212,175,55,0.1); border-radius: 20px; border: 1px solid var(--gold); text-align: center;">
-            <p style="font-size: 10px; color: var(--gold); letter-spacing: 2px;">V.I.P ACCESS</p>
-            <b id="tag-u" style="color: white; font-size: 18px;"></b>
-        </div>
-    </nav>
 
-    <main>
-        <div class="post-box">
-            <textarea id="p-t" placeholder="What's the family news today?"></textarea>
-            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-                <label style="cursor:pointer; color: var(--gold); font-weight: 600;">
-                    <i class="fa-solid fa-camera-retro"></i> PHOTO
-                    <input type="file" id="p-f" hidden accept="image/*">
-                </label>
-                <button class="btn-p" onclick="sendPost()">PUBLISH</button>
+
+    <div id="result-modal">
+
+        <h1 id="res-title" style="font-family: 'Syncopate'; font-size: 3rem;">VICTORY</h1>
+
+        <p id="res-score-summary" style="margin-bottom: 30px; opacity: 0.7;"></p>
+
+        <button class="btn-titan" style="width: 250px;" onclick="resetToFormat()">NEW MATCH</button>
+
+    </div>
+
+
+
+    <div class="console">
+
+        <div id="scr-login" class="screen active">
+
+            <h1 class="logo">HAND CRICKET 26</h1>
+
+            <input type="text" id="pName" placeholder="PLAYER ID" style="background:transparent; border:none; border-bottom:1px solid #333; color:white; padding:15px; width:100%; text-align:center; outline:none; font-family:'Orbitron'; margin-top:50px;">
+
+            <button class="btn-titan btn-cyan" onclick="goFormat()">SYNC SYSTEM</button>
+
+        </div>
+
+
+
+        <div id="scr-format" class="screen">
+
+            <h3 style="text-align: center; letter-spacing: 5px;">SELECT FORMAT</h3>
+
+            <button class="btn-titan" onclick="setMode('T20', 1)">T20 LIGHTNING (1 Wkt)</button>
+
+            <button class="btn-titan" onclick="setMode('ODI', 2)">ODI CLASSIC (2 Wkts)</button>
+
+            <button class="btn-titan" onclick="setMode('TEST', 3)">TEST SERIES (3 Wkts)</button>
+
+        </div>
+
+
+
+        <div id="scr-toss" class="screen">
+
+            <h3 style="text-align: center; letter-spacing: 5px;">THE TOSS</h3>
+
+            <div class="coin-container">
+
+                <div id="coin">
+
+                    <div class="coin-face heads">HEADS</div>
+
+                    <div class="coin-face tails">TAILS</div>
+
+                </div>
+
             </div>
-        </div>
-        <div id="feed" style="width: 100%; display: flex; flex-direction: column; align-items: center;"></div>
-    </main>
 
-    <div class="chat-side">
-        <div style="background:var(--dark); color:var(--gold); padding:20px; text-align:center; font-weight:800;">FAMILY CHAT</div>
-        <div id="chat-win"></div>
-        <div style="padding: 20px; display: flex; gap: 10px;">
-            <input type="text" id="c-m" placeholder="Type..." style="margin:0; border-radius: 20px; background: #eee; color:black;">
-            <button onclick="sendMsg()" style="background:var(--dark); color:var(--gold); width:45px; border-radius:50%; border:none; cursor:pointer;"><i class="fa-solid fa-paper-plane"></i></button>
+            <div id="toss-btns">
+
+                <button class="btn-titan" onclick="tossCoin('HEADS')">CALL HEADS</button>
+
+                <button class="btn-titan btn-cyan" onclick="tossCoin('TAILS')">CALL TAILS</button>
+
+            </div>
+
+            <p id="toss-status" style="text-align:center; font-size: 0.7rem; margin-top: 15px; color: var(--gold); min-height: 20px;"></p>
+
         </div>
+
+
+
+        <div id="scr-choice" class="screen">
+
+            <h3 style="text-align: center; letter-spacing: 3px;">TOSS WON!</h3>
+
+            <button class="btn-titan" onclick="setRole(true)">BATTING</button>
+
+            <button class="btn-titan btn-cyan" onclick="setRole(false)">BOWLING</button>
+
+        </div>
+
+
+
+        <div id="scr-game" class="screen">
+
+            <div style="display: flex; justify-content: space-between; font-size: 0.6rem; opacity: 0.6;">
+
+                <span id="mode-label">T20</span>
+
+                <span id="role-status" style="color: var(--gold);">BATTING</span>
+
+                <span id="wkt-label">WKTS: 0/1</span>
+
+            </div>
+
+
+
+            <div class="score-box">
+
+                <div style="display: flex; justify-content: space-around; align-items: center;">
+
+                    <div style="text-align: center;">
+
+                        <div id="p-name-tag" style="font-size: 0.6rem; margin-bottom: 5px;">USER</div>
+
+                        <div id="p-hand" style="font-size: 3rem;">✊</div>
+
+                        <div id="p-score" style="font-size: 3.5rem; font-family: 'Bangers'; color: var(--cyan);">0</div>
+
+                    </div>
+
+                    <div style="font-weight: 900; opacity: 0.1;">VS</div>
+
+                    <div style="text-align: center;">
+
+                        <div style="font-size: 0.6rem; color: var(--red); margin-bottom: 5px;">AI-BOT</div>
+
+                        <div id="ai-hand" style="font-size: 3rem;">✊</div>
+
+                        <div id="ai-score" style="font-size: 3.5rem; font-family: 'Bangers'; color: var(--red);">0</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div id="target-box" style="text-align: center; visibility: hidden; color: var(--gold); font-weight: 900; margin-bottom: 10px;">
+
+                TARGET: <span id="target-val">0</span>
+
+            </div>
+
+
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+
+                <button class="num-btn" onclick="play(1)">1</button>
+
+                <button class="num-btn" onclick="play(2)">2</button>
+
+                <button class="num-btn" onclick="play(3)">3</button>
+
+                <button class="num-btn" onclick="play(4)">4</button>
+
+                <button class="num-btn" onclick="play(5)">5</button>
+
+                <button class="num-btn" onclick="play(6)">6</button>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, doc, updateDoc, arrayUnion, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBsWfRX_7VAoXdulGpI7TZJuxyjtPjJ6UI",
-            authDomain: "mishra-family-8f8c9.firebaseapp.com",
-            projectId: "mishra-family-8f8c9",
-            storageBucket: "mishra-family-8f8c9.firebasestorage.app",
-            messagingSenderId: "876362165638",
-            appId: "1:876362165638:web:0bce9d93dd2ce1d8245007"
-        };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const IMGBB = "1bfde9184b28bdb1d2c6290fed74ae94"; 
-        let user = "";
+    <script>
 
-        window.openPortal = () => {
-            const n = document.getElementById('u-n').value;
-            const p = document.getElementById('u-p').value;
-            if(n && p === "family is love") {
-                user = n;
-                document.getElementById('gate').style.display = 'none';
-                document.getElementById('tag-u').innerText = user;
-                startLive();
-            } else { alert("Incorrect!"); }
-        };
+        let pName = "USER", maxWkts = 1, pWkts = 0, pScore = 0, aiScore = 0;
 
-        window.sendPost = async () => {
-            const t = document.getElementById('p-t').value;
-            const f = document.getElementById('p-f').files[0];
-            const loader = document.getElementById('loading');
-            if(!t && !f) return;
-            loader.style.display = 'block';
-            let url = "";
-            if(f) {
-                const fd = new FormData(); fd.append("image", f);
-                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB}`, { method: "POST", body: fd });
-                const d = await res.json();
-                if(d.success) url = d.data.url;
-            }
-            await addDoc(collection(db, "posts"), { 
-                name: user, text: t, img: url, likedBy: [], time: serverTimestamp() 
-            });
-            document.getElementById('p-t').value = "";
-            loader.style.display = 'none';
-        };
+        let isBatting = true, innings = 1, target = 0;
 
-        window.likePost = async (id, el) => {
-            const postRef = doc(db, "posts", id);
-            
-            // Animation: Fly Heart
-            for(let i=0; i<3; i++) {
-                const h = document.createElement('i');
-                h.className = 'fa-solid fa-heart fly-heart';
-                h.style.left = (Math.random() * 50 + 20) + 'px';
-                el.parentElement.appendChild(h);
-                setTimeout(() => h.remove(), 1500);
-            }
+        const hands = {1:'☝️', 2:'✌️', 3:'🤟', 4:'🖖', 5:'🖐️', 6:'🤙'};
 
-            // Real Like Logic: One person one like
-            await updateDoc(postRef, { likedBy: arrayUnion(user) });
-        };
 
-        window.sendMsg = async () => {
-            const m = document.getElementById('c-m').value;
-            if(m) {
-                await addDoc(collection(db, "chats"), { name: user, msg: m, time: serverTimestamp() });
-                document.getElementById('c-m').value = "";
-            }
-        };
 
-        window.removePost = async (id) => { if(confirm("Delete?")) await deleteDoc(doc(db, "posts", id)); };
+        function showScreen(id) {
 
-        function startLive() {
-            onSnapshot(query(collection(db, "posts"), orderBy("time", "desc")), (sn) => {
-                document.getElementById('feed').innerHTML = sn.docs.map(d => {
-                    const p = d.data();
-                    const hasLiked = p.likedBy && p.likedBy.includes(user);
-                    return `
-                        <div class="card">
-                            <i class="fa-solid fa-trash" style="float:right; color:#eee; cursor:pointer;" onclick="removePost('${d.id}')"></i>
-                            <b><i class="fa-solid fa-crown"></i> ${p.name}</b>
-                            <p style="margin-top:15px; font-size:18px;">${p.text || ""}</p>
-                            ${p.img ? `<img src="${p.img}" ondblclick="likePost('${d.id}', this)">` : ""}
-                            <div class="actions">
-                                <i class="fa-solid fa-heart l-btn ${hasLiked ? 'active' : ''}" onclick="likePost('${d.id}', this)"></i>
-                                <span class="l-count">${p.likedBy ? p.likedBy.length : 0} People loved this</span>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            });
-            onSnapshot(query(collection(db, "chats"), orderBy("time", "asc")), (sn) => {
-                const w = document.getElementById('chat-win');
-                w.innerHTML = sn.docs.map(d => `<div class="m ${d.data().name === user ? 'me' : ''}"><b>${d.data().name}</b><br>${d.data().msg}</div>`).join('');
-                w.scrollTop = w.scrollHeight;
-            });
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+
+            document.getElementById(id).classList.add('active');
+
         }
+
+
+
+        function goFormat() {
+
+            pName = document.getElementById('pName').value || "PLAYER";
+
+            document.getElementById('p-name-tag').innerText = pName.toUpperCase();
+
+            showScreen('scr-format');
+
+        }
+
+
+
+        // NEW: Function to reset game state but stay on Format screen
+
+        function resetToFormat() {
+
+            pWkts = 0; pScore = 0; aiScore = 0;
+
+            innings = 1; target = 0;
+
+            document.getElementById('p-score').innerText = '0';
+
+            document.getElementById('ai-score').innerText = '0';
+
+            document.getElementById('target-box').style.visibility = 'hidden';
+
+            document.getElementById('result-modal').style.display = 'none';
+
+            document.getElementById('toss-status').innerText = "";
+
+            document.getElementById('toss-btns').style.pointerEvents = "auto";
+
+            showScreen('scr-format');
+
+        }
+
+
+
+        function setMode(m, w) {
+
+            maxWkts = w;
+
+            document.getElementById('mode-label').innerText = m;
+
+            showScreen('scr-toss');
+
+        }
+
+
+
+        function tossCoin(call) {
+
+            const coin = document.getElementById('coin');
+
+            const status = document.getElementById('toss-status');
+
+            const btns = document.getElementById('toss-btns');
+
+           
+
+            btns.style.pointerEvents = "none";
+
+            coin.classList.add('flipping');
+
+            status.innerText = "COIN IS IN THE AIR...";
+
+
+
+            setTimeout(() => {
+
+                coin.classList.remove('flipping');
+
+                const result = Math.random() < 0.5 ? 'HEADS' : 'TAILS';
+
+                coin.style.transform = result === 'HEADS' ? "rotateY(0deg)" : "rotateY(180deg)";
+
+
+
+                setTimeout(() => {
+
+                    if (call === result) {
+
+                        status.innerText = `RESULT: ${result}. YOU WON!`;
+
+                        setTimeout(() => showScreen('scr-choice'), 1000);
+
+                    } else {
+
+                        const aiChoice = Math.random() < 0.5;
+
+                        isBatting = !aiChoice;
+
+                        status.innerText = `RESULT: ${result}. AI CHOSE TO ${aiChoice ? 'BAT' : 'BOWL'}!`;
+
+                        setTimeout(startGame, 1500);
+
+                    }
+
+                }, 500);
+
+            }, 2000);
+
+        }
+
+
+
+        function setRole(batting) {
+
+            isBatting = batting;
+
+            startGame();
+
+        }
+
+
+
+        function startGame() {
+
+            document.getElementById('role-status').innerText = isBatting ? "BATTING" : "BOWLING";
+
+            document.getElementById('wkt-label').innerText = `WKTS: 0/${maxWkts}`;
+
+            showScreen('scr-game');
+
+        }
+
+
+
+        function play(val) {
+
+            const aiVal = Math.floor(Math.random() * 6) + 1;
+
+            document.getElementById('p-hand').innerText = hands[val];
+
+            document.getElementById('ai-hand').innerText = hands[aiVal];
+
+
+
+            if(val === aiVal) {
+
+                pWkts++;
+
+                document.getElementById('wkt-label').innerText = `WKTS: ${pWkts}/${maxWkts}`;
+
+                triggerOut();
+
+            } else {
+
+                if(isBatting) {
+
+                    pScore += val;
+
+                    document.getElementById('p-score').innerText = pScore;
+
+                    if(innings === 2 && pScore >= target) showFinale(true);
+
+                } else {
+
+                    aiScore += aiVal;
+
+                    document.getElementById('ai-score').innerText = aiScore;
+
+                    if(innings === 2 && aiScore >= target) showFinale(false);
+
+                }
+
+            }
+
+        }
+
+
+
+        function triggerOut() {
+
+            const overlay = document.getElementById('out-overlay');
+
+            const msg = document.getElementById('wicket-msg');
+
+            overlay.style.display = 'flex';
+
+           
+
+            if(pWkts < maxWkts) {
+
+                msg.innerText = `${maxWkts - pWkts} WICKET(S) LEFT`;
+
+            } else {
+
+                if(innings === 1) {
+
+                    target = (isBatting ? pScore : aiScore) + 1;
+
+                    msg.innerText = `ALL OUT! TARGET: ${target}`;
+
+                } else {
+
+                    msg.innerText = `MATCH OVER!`;
+
+                }
+
+            }
+
+        }
+
+
+
+        function closeOut() {
+
+            document.getElementById('out-overlay').style.display = 'none';
+
+            if(pWkts >= maxWkts) {
+
+                if(innings === 1) {
+
+                    innings = 2; isBatting = !isBatting;
+
+                    pWkts = 0; // Reset wickets for 2nd innings
+
+                    document.getElementById('wkt-label').innerText = `WKTS: 0/${maxWkts}`;
+
+                    document.getElementById('role-status').innerText = isBatting ? "BATTING" : "BOWLING";
+
+                    document.getElementById('target-box').style.visibility = 'visible';
+
+                    document.getElementById('target-val').innerText = target;
+
+                } else {
+
+                    const finalBattingScore = isBatting ? pScore : aiScore;
+
+                    showFinale(finalBattingScore >= target);
+
+                }
+
+            }
+
+        }
+
+
+
+        function showFinale(win) {
+
+            const modal = document.getElementById('result-modal');
+
+            const title = document.getElementById('res-title');
+
+            modal.style.display = 'flex';
+
+            title.innerText = win ? "VICTORY" : "DEFEAT";
+
+            title.style.color = win ? "var(--gold)" : "var(--red)";
+
+            document.getElementById('res-score-summary').innerText = `Final Target: ${target}`;
+
+        }
+
     </script>
+
 </body>
+
 </html>
