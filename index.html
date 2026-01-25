@@ -8,87 +8,287 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>HAND CRICKET 26 | TITAN EDITION</title>
+    <title>HAND CRICKET 26 | DEFINITIVE EDITION</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Bangers&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Bangers&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+
+    
 
     <style>
 
         :root {
 
-            --cyan: #00d2ff; --green: #2ecc71; --gold: #d4af37;
+            --neon: #00ff9d;
 
-            --red: #ff3131; --bg: #010208; --glass: rgba(255, 255, 255, 0.05);
+            --neon-glow: rgba(0, 255, 157, 0.6);
 
-            --neon-blue: #00d2ff; --neon-gold: #d4af37;
+            --gold: #f1c40f;
+
+            --danger: #ff4757;
+
+            --glass: rgba(2, 15, 10, 0.98);
+
+            --font-main: 'Orbitron', sans-serif;
+
+            --font-game: 'Bangers', cursive;
 
         }
 
 
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        /* --- GLOBAL RESET --- */
 
-        body, html { margin: 0; height: 100%; width: 100%; background: var(--bg); color: white; font-family: 'Orbitron', sans-serif; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
 
+        body, html { 
 
+            width: 100%; height: 100%; background: #000; color: #fff; 
 
-        .stadium { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% -20%, #1a2a44 0%, transparent 70%), radial-gradient(circle at 50% 120%, #0a111a 0%, #010208 100%); }
+            font-family: var(--font-main); overflow: hidden; 
 
+            display: flex; align-items: center; justify-content: center; 
 
-
-        .console { position: relative; width: 95%; max-width: 500px; background: var(--glass); backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 30px; box-shadow: 0 40px 100px rgba(0,0,0,0.8); z-index: 10; }
-
-
-
-        .logo { font-family: 'Syncopate'; font-size: clamp(1.2rem, 5vw, 2.2rem); letter-spacing: 5px; font-weight: 900; background: linear-gradient(90deg, var(--cyan), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; text-align: center; }
+        }
 
 
 
-        /* --- COIN TOSS --- */
+        /* --- ANIMATIONS --- */
 
-        .coin-container { height: 100px; width: 100px; margin: 20px auto; perspective: 1000px; }
+        @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-        #coin { height: 100%; width: 100%; position: relative; transform-style: preserve-3d; transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes slideUp { 0% { transform: translateY(50px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
 
-        .coin-face { position: absolute; height: 100%; width: 100%; border-radius: 50%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; font-weight: 900; border: 4px solid var(--gold); background: #111; font-size: 0.9rem; }
+        @keyframes pulseNeon { 0%, 100% { box-shadow: 0 0 15px var(--neon-glow); } 50% { box-shadow: 0 0 30px var(--neon); } }
 
-        .heads { color: var(--gold); }
+        @keyframes coinFlip { 0% { transform: rotateY(0); } 100% { transform: rotateY(1800deg); } }
 
-        .tails { color: var(--cyan); border-color: var(--cyan); transform: rotateY(180deg); }
-
-        .flipping { animation: spin 0.2s linear infinite; }
-
-        @keyframes spin { 100% { transform: rotateY(360deg); } }
+        @keyframes bgScroll { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
 
 
 
-        /* --- BUTTONS --- */
+        /* --- BACKGROUND --- */
 
-        .btn-titan { background: linear-gradient(90deg, #d4af37, #f9e29c); border: none; color: black; padding: 18px; border-radius: 12px; font-family: 'Orbitron'; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: 0.3s; width: 100%; margin-top: 15px; }
+        .stadium-bg {
 
-        .btn-titan:hover { transform: translateY(-3px); }
+            position: fixed; inset: 0; z-index: -2; 
 
-        .btn-cyan { background: linear-gradient(90deg, var(--cyan), #80ebff); }
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=1920&q=80');
 
+            background-size: cover; filter: blur(3px);
 
-
-        .score-box { border: 1px solid rgba(0, 210, 255, 0.2); border-radius: 20px; padding: 25px; background: rgba(255,255,255,0.03); margin: 20px 0; }
-
-        .num-btn { aspect-ratio: 1/1; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; font-size: 1.5rem; font-family: 'Bangers'; cursor: pointer; }
-
-        .num-btn:active { background: var(--cyan); color: black; }
+        }
 
 
 
-        #out-overlay, #result-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; display: none; flex-direction: column; align-items: center; justify-content: center; }
+        /* --- CONSOLE SYSTEM --- */
 
-       
+        .console {
 
-        .screen { display: none; }
+            position: relative; width: 95%; max-width: 480px; height: 92vh;
 
-        .active { display: block; animation: zoomIn 0.4s ease-out; }
+            background: var(--glass); border: 2px solid var(--neon);
 
-        @keyframes zoomIn { from { opacity: 0; scale: 0.9; } to { opacity: 1; scale: 1; } }
+            border-radius: 40px; display: flex; flex-direction: column;
+
+            box-shadow: 0 0 100px #000, inset 0 0 40px rgba(0,255,157,0.1);
+
+            overflow: hidden; animation: popIn 0.6s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+
+        }
+
+
+
+        /* --- LOGIN SCREEN --- */
+
+        .login-box {
+
+            flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 40px;
+
+            text-align: center; background: radial-gradient(circle, rgba(0,255,157,0.05) 0%, transparent 70%);
+
+        }
+
+        .login-logo { font-family: var(--font-game); font-size: 4rem; color: var(--neon); text-shadow: 0 0 20px var(--neon); margin-bottom: 30px; }
+
+        
+
+        .input-group { margin-bottom: 20px; animation: slideUp 0.8s ease; }
+
+        .input-group input {
+
+            width: 100%; padding: 18px; border-radius: 15px; border: 1px solid var(--neon);
+
+            background: rgba(255,255,255,0.05); color: #fff; text-align: center;
+
+            font-family: var(--font-main); font-size: 1rem; outline: none; transition: 0.3s;
+
+        }
+
+        .input-group input:focus { box-shadow: 0 0 20px var(--neon-glow); background: rgba(0,255,157,0.1); }
+
+
+
+        .btn-glow {
+
+            width: 100%; padding: 20px; border-radius: 15px; border: none;
+
+            background: var(--neon); color: #000; font-family: var(--font-game);
+
+            font-size: 2rem; cursor: pointer; transition: 0.2s; animation: pulseNeon 2s infinite;
+
+        }
+
+        .btn-glow:active { transform: scale(0.95); opacity: 0.8; }
+
+
+
+        /* --- HUB & TABS --- */
+
+        .screen { display: none; flex-direction: column; height: 100%; padding: 20px; animation: slideUp 0.4s ease; }
+
+        .screen.active { display: flex; }
+
+
+
+        .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+
+        .tab-btn {
+
+            flex: 1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.05);
+
+            font-size: 0.8rem; font-weight: 700; cursor: pointer; border: 1px solid transparent;
+
+        }
+
+        .tab-btn.active { background: var(--neon); color: #000; border-color: var(--neon); box-shadow: 0 0 15px var(--neon-glow); }
+
+
+
+        .list-container { flex: 1; overflow-y: auto; padding-right: 5px; }
+
+        .match-card {
+
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(0,255,157,0.2);
+
+            border-radius: 20px; padding: 20px; margin-bottom: 12px;
+
+            display: flex; justify-content: space-between; align-items: center;
+
+            cursor: pointer; transition: 0.3s;
+
+        }
+
+        .match-card:hover { transform: translateX(10px); background: rgba(0,255,157,0.1); border-color: var(--neon); }
+
+        .match-card h3 { font-family: 'Rajdhani'; font-size: 1.4rem; color: #fff; }
+
+        .match-card p { font-size: 0.7rem; color: var(--gold); }
+
+
+
+        /* --- TOSS ANIMATION --- */
+
+        .toss-arena { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+        .coin-wrapper { width: 150px; height: 150px; perspective: 1000px; margin-bottom: 50px; }
+
+        .coin {
+
+            width: 100%; height: 100%; position: relative; transform-style: preserve-3d;
+
+            transition: transform 3s cubic-bezier(0.1, 0.9, 0.2, 1);
+
+        }
+
+        .coin div {
+
+            position: absolute; width: 100%; height: 100%; border-radius: 50%;
+
+            display: flex; align-items: center; justify-content: center;
+
+            font-size: 1.5rem; font-weight: 900; border: 6px solid var(--gold);
+
+            background: #222; color: var(--gold); backface-visibility: hidden;
+
+            box-shadow: 0 0 30px var(--gold);
+
+        }
+
+        .coin .back { transform: rotateY(180deg); background: var(--gold); color: #000; }
+
+        .flipping { animation: coinFlip 0.3s infinite linear; }
+
+
+
+        /* --- GAMEPLAY HUD --- */
+
+        .score-display {
+
+            background: rgba(0,0,0,0.8); border: 2px solid var(--neon);
+
+            border-radius: 30px; padding: 25px; display: flex;
+
+            justify-content: space-around; align-items: center; margin-bottom: 20px;
+
+        }
+
+        .player-block h2 { font-family: var(--font-game); font-size: 4rem; margin: 0; }
+
+        .hand-icon { font-size: 4rem; height: 80px; display: flex; align-items: center; justify-content: center; }
+
+        
+
+        .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+
+        .num-key {
+
+            padding: 20px; background: rgba(0,255,157,0.05); border: 1px solid var(--neon);
+
+            border-radius: 15px; color: #fff; font-family: var(--font-game);
+
+            font-size: 2.2rem; cursor: pointer; transition: 0.1s;
+
+        }
+
+        .num-key:active { background: var(--neon); color: #000; transform: scale(0.9); }
+
+
+
+        /* --- POPUP NOTIFICATIONS --- */
+
+        .overlay {
+
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+
+            z-index: 1000; display: none; flex-direction: column;
+
+            align-items: center; justify-content: center; text-align: center;
+
+            padding: 20px;
+
+        }
+
+        .overlay.active { display: flex; animation: popIn 0.4s forwards; }
+
+        .overlay h1 { font-family: var(--font-game); font-size: 6rem; line-height: 1; margin-bottom: 20px; }
+
+        .out-text { color: var(--danger); text-shadow: 0 0 30px var(--danger); }
+
+        .win-text { color: var(--gold); text-shadow: 0 0 30px var(--gold); }
+
+
+
+        /* --- LEADERBOARD --- */
+
+        .lb-row {
+
+            display: flex; justify-content: space-between; padding: 15px;
+
+            border-bottom: 1px solid rgba(255,255,255,0.1); font-family: 'Rajdhani';
+
+        }
 
     </style>
 
@@ -98,29 +298,25 @@
 
 
 
-    <div class="stadium"></div>
+    <div class="stadium-bg"></div>
 
 
 
-    <div id="out-overlay">
+    <audio id="sfxCrowd" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
-        <div style="font-family: 'Syncopate'; font-size: 5rem; color: var(--red); text-shadow: 0 0 20px var(--red);">OUT</div>
+    <audio id="sfxOut" src="https://assets.mixkit.co/sfx/preview/mixkit-crowd-groan-606.mp3"></audio>
 
-        <div id="wicket-msg" style="letter-spacing: 5px; color: var(--cyan); margin-top: 20px;">WICKET!</div>
-
-        <button class="btn-titan" style="width: 200px; margin-top: 40px;" onclick="closeOut()">CONTINUE</button>
-
-    </div>
+    <audio id="sfxWin" src="https://assets.mixkit.co/sfx/preview/mixkit-stadium-cheer-602.mp3"></audio>
 
 
 
-    <div id="result-modal">
+    <div id="popup" class="overlay">
 
-        <h1 id="res-title" style="font-family: 'Syncopate'; font-size: 3rem;">VICTORY</h1>
+        <h1 id="pop-title" class="out-text">OUT!</h1>
 
-        <p id="res-score-summary" style="margin-bottom: 30px; opacity: 0.7;"></p>
+        <p id="pop-msg" style="font-size: 1.5rem; margin-bottom: 40px; font-family: 'Rajdhani';"></p>
 
-        <button class="btn-titan" style="width: 250px;" onclick="resetToFormat()">NEW MATCH</button>
+        <button class="btn-glow" style="width: 250px" onclick="gameEngine.closePopup()">CONTINUE</button>
 
     </div>
 
@@ -128,27 +324,89 @@
 
     <div class="console">
 
-        <div id="scr-login" class="screen active">
+        <div style="padding: 15px 20px; display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--neon);">
 
-            <h1 class="logo">HAND CRICKET 26</h1>
+            <span>STATUS: ONLINE</span>
 
-            <input type="text" id="pName" placeholder="PLAYER ID" style="background:transparent; border:none; border-bottom:1px solid #333; color:white; padding:15px; width:100%; text-align:center; outline:none; font-family:'Orbitron'; margin-top:50px;">
-
-            <button class="btn-titan btn-cyan" onclick="goFormat()">SYNC SYSTEM</button>
+            <span id="live-users">USERS: 1,290,432</span>
 
         </div>
 
 
 
-        <div id="scr-format" class="screen">
+        <div id="scr-login" class="screen active">
 
-            <h3 style="text-align: center; letter-spacing: 5px;">SELECT FORMAT</h3>
+            <div class="login-box">
 
-            <button class="btn-titan" onclick="setMode('T20', 1)">T20 LIGHTNING (1 Wkt)</button>
+                <h1 class="login-logo">CRICKET 26</h1>
 
-            <button class="btn-titan" onclick="setMode('ODI', 2)">ODI CLASSIC (2 Wkts)</button>
+                <div class="input-group">
 
-            <button class="btn-titan" onclick="setMode('TEST', 3)">TEST SERIES (3 Wkts)</button>
+                    <input type="text" id="username" placeholder="PLAYER NAME">
+
+                </div>
+
+                <div class="input-group">
+
+                    <input type="password" id="passkey" placeholder="PASSWORD">
+
+                </div>
+
+                <button class="btn-glow" onclick="gameEngine.auth()">LOGIN</button>
+
+            </div>
+
+        </div>
+
+
+
+        <div id="scr-hub" class="screen">
+
+            <h2 style="text-align: center; margin-bottom: 20px; font-family: 'Bangers'; letter-spacing: 2px;">MATCH CENTER</h2>
+
+            <div class="nav-tabs">
+
+                <div id="tab-q" class="tab-btn active" onclick="gameEngine.switchTab('q')">QUICK MATCH</div>
+
+                <div id="tab-l" class="tab-btn" onclick="gameEngine.switchTab('l')">LEAGUES</div>
+
+                <div id="tab-r" class="tab-btn" onclick="gameEngine.switchTab('r')">RANKINGS</div>
+
+            </div>
+
+
+
+            <div id="view-q" class="list-container">
+
+                <div class="match-card" onclick="gameEngine.initMatch('T20', 1)"><div><h3>T20 BLAST</h3><p>1 WICKET | SUDDEN DEATH</p></div><span>➔</span></div>
+
+                <div class="match-card" onclick="gameEngine.initMatch('ODI', 3)"><div><h3>ODI CLASSIC</h3><p>3 WICKETS | PROFESSIONAL</p></div><span>➔</span></div>
+
+                <div class="match-card" onclick="gameEngine.initMatch('TEST', 10)"><div><h3>ULTIMATE TEST</h3><p>10 WICKETS | LEGENDARY</p></div><span>➔</span></div>
+
+            </div>
+
+
+
+            <div id="view-l" class="list-container" style="display:none">
+
+                <div class="match-card" onclick="gameEngine.initMatch('IPL', 2)"><div><h3>IPL 2026</h3><p>VS MUMBAI INDIANS</p></div><span>➔</span></div>
+
+                <div class="match-card" onclick="gameEngine.initMatch('PSL', 2)"><div><h3>PSL SEASON 11</h3><p>VS LAHORE QALANDARS</p></div><span>➔</span></div>
+
+                <div class="match-card" onclick="gameEngine.initMatch('BBL', 2)"><div><h3>BIG BASH</h3><p>VS SYDNEY SIXERS</p></div><span>➔</span></div>
+
+                <div class="match-card" onclick="gameEngine.initMatch('WC26', 3)"><div><h3>WORLD CUP 26</h3><p>KNOCKOUT STAGE</p></div><span>➔</span></div>
+
+            </div>
+
+
+
+            <div id="view-r" class="list-container" style="display:none">
+
+                <div id="leaderboard-target"></div>
+
+            </div>
 
         </div>
 
@@ -156,41 +414,31 @@
 
         <div id="scr-toss" class="screen">
 
-            <h3 style="text-align: center; letter-spacing: 5px;">THE TOSS</h3>
+            <h2 style="text-align: center; color: var(--gold); font-family: 'Bangers';">PRE-MATCH TOSS</h2>
 
-            <div class="coin-container">
+            <div class="toss-arena">
 
-                <div id="coin">
+                <div class="coin-wrapper">
 
-                    <div class="coin-face heads">HEADS</div>
+                    <div id="coin-obj" class="coin">
 
-                    <div class="coin-face tails">TAILS</div>
+                        <div class="front">HEADS</div>
+
+                        <div class="back">TAILS</div>
+
+                    </div>
+
+                </div>
+
+                <div id="toss-btns" style="display: flex; gap: 15px; width: 100%;">
+
+                    <button class="btn-glow" style="flex:1" onclick="gameEngine.runToss('Heads')">HEADS</button>
+
+                    <button class="btn-glow" style="flex:1" onclick="gameEngine.runToss('Tails')">TAILS</button>
 
                 </div>
 
             </div>
-
-            <div id="toss-btns">
-
-                <button class="btn-titan" onclick="tossCoin('HEADS')">CALL HEADS</button>
-
-                <button class="btn-titan btn-cyan" onclick="tossCoin('TAILS')">CALL TAILS</button>
-
-            </div>
-
-            <p id="toss-status" style="text-align:center; font-size: 0.7rem; margin-top: 15px; color: var(--gold); min-height: 20px;"></p>
-
-        </div>
-
-
-
-        <div id="scr-choice" class="screen">
-
-            <h3 style="text-align: center; letter-spacing: 3px;">TOSS WON!</h3>
-
-            <button class="btn-titan" onclick="setRole(true)">BATTING</button>
-
-            <button class="btn-titan btn-cyan" onclick="setRole(false)">BOWLING</button>
 
         </div>
 
@@ -198,43 +446,37 @@
 
         <div id="scr-game" class="screen">
 
-            <div style="display: flex; justify-content: space-between; font-size: 0.6rem; opacity: 0.6;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; color: var(--gold); font-weight: 700;">
 
-                <span id="mode-label">T20</span>
+                <span id="hud-mode">IPL 2026</span>
 
-                <span id="role-status" style="color: var(--gold);">BATTING</span>
-
-                <span id="wkt-label">WKTS: 0/1</span>
+                <span id="hud-wkts">WKTS: 0/2</span>
 
             </div>
 
+            
 
+            <div class="score-display">
 
-            <div class="score-box">
+                <div class="player-block" style="text-align: center">
 
-                <div style="display: flex; justify-content: space-around; align-items: center;">
+                    <h2 id="p-score">0</h2>
 
-                    <div style="text-align: center;">
+                    <div id="p-gesture" class="hand-icon">✊</div>
 
-                        <div id="p-name-tag" style="font-size: 0.6rem; margin-bottom: 5px;">USER</div>
+                    <small id="p-label" style="color: var(--neon)">BATTING</small>
 
-                        <div id="p-hand" style="font-size: 3rem;">✊</div>
+                </div>
 
-                        <div id="p-score" style="font-size: 3.5rem; font-family: 'Bangers'; color: var(--cyan);">0</div>
+                <div style="font-weight: 900; color: var(--neon); font-size: 1.5rem;">VS</div>
 
-                    </div>
+                <div class="player-block" style="text-align: center">
 
-                    <div style="font-weight: 900; opacity: 0.1;">VS</div>
+                    <h2 id="a-score">0</h2>
 
-                    <div style="text-align: center;">
+                    <div id="a-gesture" class="hand-icon">✊</div>
 
-                        <div style="font-size: 0.6rem; color: var(--red); margin-bottom: 5px;">AI-BOT</div>
-
-                        <div id="ai-hand" style="font-size: 3rem;">✊</div>
-
-                        <div id="ai-score" style="font-size: 3.5rem; font-family: 'Bangers'; color: var(--red);">0</div>
-
-                    </div>
+                    <small id="a-label" style="opacity: 0.5">BOWLING</small>
 
                 </div>
 
@@ -242,27 +484,27 @@
 
 
 
-            <div id="target-box" style="text-align: center; visibility: hidden; color: var(--gold); font-weight: 900; margin-bottom: 10px;">
+            <div id="target-ui" style="text-align: center; padding: 10px; border: 1px dashed var(--gold); border-radius: 10px; color: var(--gold); margin-bottom: 15px; visibility: hidden;">
 
-                TARGET: <span id="target-val">0</span>
+                TARGET TO WIN: <span id="target-val">0</span>
 
             </div>
 
 
 
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+            <div class="numpad">
 
-                <button class="num-btn" onclick="play(1)">1</button>
+                <button class="num-key" onclick="gameEngine.playTurn(1)">1</button>
 
-                <button class="num-btn" onclick="play(2)">2</button>
+                <button class="num-key" onclick="gameEngine.playTurn(2)">2</button>
 
-                <button class="num-btn" onclick="play(3)">3</button>
+                <button class="num-key" onclick="gameEngine.playTurn(3)">3</button>
 
-                <button class="num-btn" onclick="play(4)">4</button>
+                <button class="num-key" onclick="gameEngine.playTurn(4)">4</button>
 
-                <button class="num-btn" onclick="play(5)">5</button>
+                <button class="num-key" onclick="gameEngine.playTurn(5)">5</button>
 
-                <button class="num-btn" onclick="play(6)">6</button>
+                <button class="num-key" onclick="gameEngine.playTurn(6)">6</button>
 
             </div>
 
@@ -274,279 +516,409 @@
 
     <script>
 
-        let pName = "USER", maxWkts = 1, pWkts = 0, pScore = 0, aiScore = 0;
+        const gameEngine = {
 
-        let isBatting = true, innings = 1, target = 0;
+            state: {
 
-        const hands = {1:'☝️', 2:'✌️', 3:'🤟', 4:'🖖', 5:'🖐️', 6:'🤙'};
+                user: "Player",
 
+                xp: 1500,
 
+                isBatting: true,
 
-        function showScreen(id) {
+                currentInnings: 1,
 
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                playerRuns: 0,
 
-            document.getElementById(id).classList.add('active');
+                aiRuns: 0,
 
-        }
+                wickets: 0,
 
+                maxWickets: 1,
 
+                target: 0,
 
-        function goFormat() {
+                matchType: "",
 
-            pName = document.getElementById('pName').value || "PLAYER";
+                isOver: false
 
-            document.getElementById('p-name-tag').innerText = pName.toUpperCase();
-
-            showScreen('scr-format');
-
-        }
-
-
-
-        // NEW: Function to reset game state but stay on Format screen
-
-        function resetToFormat() {
-
-            pWkts = 0; pScore = 0; aiScore = 0;
-
-            innings = 1; target = 0;
-
-            document.getElementById('p-score').innerText = '0';
-
-            document.getElementById('ai-score').innerText = '0';
-
-            document.getElementById('target-box').style.visibility = 'hidden';
-
-            document.getElementById('result-modal').style.display = 'none';
-
-            document.getElementById('toss-status').innerText = "";
-
-            document.getElementById('toss-btns').style.pointerEvents = "auto";
-
-            showScreen('scr-format');
-
-        }
+            },
 
 
 
-        function setMode(m, w) {
+            auth: () => {
 
-            maxWkts = w;
+                const name = document.getElementById('username').value || "Captain";
 
-            document.getElementById('mode-label').innerText = m;
+                gameEngine.state.user = name;
 
-            showScreen('scr-toss');
+                document.getElementById('sfxCrowd').play().catch(()=>{});
 
-        }
+                gameEngine.showScreen('scr-hub');
 
-
-
-        function tossCoin(call) {
-
-            const coin = document.getElementById('coin');
-
-            const status = document.getElementById('toss-status');
-
-            const btns = document.getElementById('toss-btns');
-
-           
-
-            btns.style.pointerEvents = "none";
-
-            coin.classList.add('flipping');
-
-            status.innerText = "COIN IS IN THE AIR...";
+            },
 
 
 
-            setTimeout(() => {
+            showScreen: (id) => {
 
-                coin.classList.remove('flipping');
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
 
-                const result = Math.random() < 0.5 ? 'HEADS' : 'TAILS';
+                document.getElementById(id).classList.add('active');
 
-                coin.style.transform = result === 'HEADS' ? "rotateY(0deg)" : "rotateY(180deg)";
+            },
+
+
+
+            switchTab: (tab) => {
+
+                const views = ['q', 'l', 'r'];
+
+                views.forEach(v => {
+
+                    document.getElementById('view-'+v).style.display = (v === tab) ? 'block' : 'none';
+
+                    document.getElementById('tab-'+v).classList.toggle('active', v === tab);
+
+                });
+
+                if(tab === 'r') gameEngine.renderLeaderboard();
+
+            },
+
+
+
+            initMatch: (type, wkts) => {
+
+                // RESET STATE COMPLETELY
+
+                gameEngine.state.matchType = type;
+
+                gameEngine.state.maxWickets = wkts;
+
+                gameEngine.state.playerRuns = 0;
+
+                gameEngine.state.aiRuns = 0;
+
+                gameEngine.state.wickets = 0;
+
+                gameEngine.state.currentInnings = 1;
+
+                gameEngine.state.target = 0;
+
+                gameEngine.state.isOver = false;
+
+
+
+                gameEngine.showScreen('scr-toss');
+
+            },
+
+
+
+            runToss: (choice) => {
+
+                const coin = document.getElementById('coin-obj');
+
+                const btns = document.getElementById('toss-btns');
+
+                btns.style.pointerEvents = 'none';
+
+                coin.classList.add('flipping');
 
 
 
                 setTimeout(() => {
 
-                    if (call === result) {
+                    coin.classList.remove('flipping');
 
-                        status.innerText = `RESULT: ${result}. YOU WON!`;
+                    const win = Math.random() > 0.5;
 
-                        setTimeout(() => showScreen('scr-choice'), 1000);
+                    const result = win ? choice : (choice === 'Heads' ? 'Tails' : 'Heads');
+
+                    
+
+                    coin.style.transform = (result === 'Heads') ? 'rotateY(0)' : 'rotateY(180deg)';
+
+                    
+
+                    setTimeout(() => {
+
+                        gameEngine.state.isBatting = win;
+
+                        gameEngine.triggerPopup(
+
+                            win ? "TOSS WON" : "TOSS LOST",
+
+                            win ? "You decided to BAT first!" : "AI decided to BAT first!",
+
+                            win ? "win-text" : "out-text"
+
+                        );
+
+                        btns.style.pointerEvents = 'all';
+
+                        gameEngine.setupField();
+
+                    }, 1000);
+
+                }, 2000);
+
+            },
+
+
+
+            setupField: () => {
+
+                document.getElementById('hud-mode').innerText = gameEngine.state.matchType;
+
+                document.getElementById('hud-wkts').innerText = `WKTS: 0/${gameEngine.state.maxWickets}`;
+
+                document.getElementById('p-score').innerText = "0";
+
+                document.getElementById('a-score').innerText = "0";
+
+                document.getElementById('target-ui').style.visibility = "hidden";
+
+                
+
+                gameEngine.updateLabels();
+
+                gameEngine.showScreen('scr-game');
+
+            },
+
+
+
+            updateLabels: () => {
+
+                document.getElementById('p-label').innerText = gameEngine.state.isBatting ? "BATTING" : "BOWLING";
+
+                document.getElementById('a-label').innerText = gameEngine.state.isBatting ? "BOWLING" : "BATTING";
+
+                document.getElementById('p-label').style.opacity = gameEngine.state.isBatting ? "1" : "0.5";
+
+                document.getElementById('a-label').style.opacity = gameEngine.state.isBatting ? "0.5" : "1";
+
+            },
+
+
+
+            playTurn: (val) => {
+
+                const ai = Math.floor(Math.random() * 6) + 1;
+
+                const hands = {1:'☝️', 2:'✌️', 3:'🤟', 4:'🖖', 5:'🖐️', 6:'🤙'};
+
+                
+
+                document.getElementById('p-gesture').innerText = hands[val];
+
+                document.getElementById('a-gesture').innerText = hands[ai];
+
+
+
+                if (val === ai) {
+
+                    gameEngine.state.wickets++;
+
+                    document.getElementById('sfxOut').play();
+
+                    document.getElementById('hud-wkts').innerText = `WKTS: ${gameEngine.state.wickets}/${gameEngine.state.maxWickets}`;
+
+                    
+
+                    if (gameEngine.state.wickets >= gameEngine.state.maxWickets) {
+
+                        gameEngine.handleInningsEnd();
 
                     } else {
 
-                        const aiChoice = Math.random() < 0.5;
-
-                        isBatting = !aiChoice;
-
-                        status.innerText = `RESULT: ${result}. AI CHOSE TO ${aiChoice ? 'BAT' : 'BOWL'}!`;
-
-                        setTimeout(startGame, 1500);
+                        gameEngine.triggerPopup("OUT!", "A magnificent delivery takes the wicket!", "out-text");
 
                     }
 
-                }, 500);
-
-            }, 2000);
-
-        }
-
-
-
-        function setRole(batting) {
-
-            isBatting = batting;
-
-            startGame();
-
-        }
-
-
-
-        function startGame() {
-
-            document.getElementById('role-status').innerText = isBatting ? "BATTING" : "BOWLING";
-
-            document.getElementById('wkt-label').innerText = `WKTS: 0/${maxWkts}`;
-
-            showScreen('scr-game');
-
-        }
-
-
-
-        function play(val) {
-
-            const aiVal = Math.floor(Math.random() * 6) + 1;
-
-            document.getElementById('p-hand').innerText = hands[val];
-
-            document.getElementById('ai-hand').innerText = hands[aiVal];
-
-
-
-            if(val === aiVal) {
-
-                pWkts++;
-
-                document.getElementById('wkt-label').innerText = `WKTS: ${pWkts}/${maxWkts}`;
-
-                triggerOut();
-
-            } else {
-
-                if(isBatting) {
-
-                    pScore += val;
-
-                    document.getElementById('p-score').innerText = pScore;
-
-                    if(innings === 2 && pScore >= target) showFinale(true);
-
                 } else {
 
-                    aiScore += aiVal;
+                    if (gameEngine.state.isBatting) {
 
-                    document.getElementById('ai-score').innerText = aiScore;
+                        gameEngine.state.playerRuns += val;
 
-                    if(innings === 2 && aiScore >= target) showFinale(false);
+                        document.getElementById('p-score').innerText = gameEngine.state.playerRuns;
+
+                        if (gameEngine.state.currentInnings === 2 && gameEngine.state.playerRuns >= gameEngine.state.target) {
+
+                            gameEngine.finishMatch(true);
+
+                        }
+
+                    } else {
+
+                        gameEngine.state.aiRuns += ai;
+
+                        document.getElementById('a-score').innerText = gameEngine.state.aiRuns;
+
+                        if (gameEngine.state.currentInnings === 2 && gameEngine.state.aiRuns >= gameEngine.state.target) {
+
+                            gameEngine.finishMatch(false);
+
+                        }
+
+                    }
 
                 }
 
-            }
-
-        }
+            },
 
 
 
-        function triggerOut() {
+            handleInningsEnd: () => {
 
-            const overlay = document.getElementById('out-overlay');
+                if (gameEngine.state.currentInnings === 1) {
 
-            const msg = document.getElementById('wicket-msg');
+                    gameEngine.state.currentInnings = 2;
 
-            overlay.style.display = 'flex';
+                    gameEngine.state.target = (gameEngine.state.isBatting ? gameEngine.state.playerRuns : gameEngine.state.aiRuns) + 1;
 
-           
+                    gameEngine.state.isBatting = !gameEngine.state.isBatting;
 
-            if(pWkts < maxWkts) {
+                    gameEngine.state.wickets = 0;
 
-                msg.innerText = `${maxWkts - pWkts} WICKET(S) LEFT`;
+                    
 
-            } else {
+                    gameEngine.triggerPopup("INNINGS OVER", `Target for next innings: ${gameEngine.state.target}`, "win-text");
 
-                if(innings === 1) {
+                    
 
-                    target = (isBatting ? pScore : aiScore) + 1;
+                    const tUi = document.getElementById('target-ui');
 
-                    msg.innerText = `ALL OUT! TARGET: ${target}`;
+                    tUi.style.visibility = "visible";
 
-                } else {
+                    document.getElementById('target-val').innerText = gameEngine.state.target;
 
-                    msg.innerText = `MATCH OVER!`;
+                    document.getElementById('hud-wkts').innerText = `WKTS: 0/${gameEngine.state.maxWickets}`;
 
-                }
-
-            }
-
-        }
-
-
-
-        function closeOut() {
-
-            document.getElementById('out-overlay').style.display = 'none';
-
-            if(pWkts >= maxWkts) {
-
-                if(innings === 1) {
-
-                    innings = 2; isBatting = !isBatting;
-
-                    pWkts = 0; // Reset wickets for 2nd innings
-
-                    document.getElementById('wkt-label').innerText = `WKTS: 0/${maxWkts}`;
-
-                    document.getElementById('role-status').innerText = isBatting ? "BATTING" : "BOWLING";
-
-                    document.getElementById('target-box').style.visibility = 'visible';
-
-                    document.getElementById('target-val').innerText = target;
+                    gameEngine.updateLabels();
 
                 } else {
 
-                    const finalBattingScore = isBatting ? pScore : aiScore;
+                    const playerWon = gameEngine.state.isBatting ? 
 
-                    showFinale(finalBattingScore >= target);
+                        (gameEngine.state.playerRuns >= gameEngine.state.target) : 
+
+                        (gameEngine.state.aiRuns < gameEngine.state.target);
+
+                    gameEngine.finishMatch(playerWon);
 
                 }
 
+            },
+
+
+
+            finishMatch: (won) => {
+
+                gameEngine.state.isOver = true;
+
+                if(won) {
+
+                    gameEngine.state.xp += 200;
+
+                    document.getElementById('sfxWin').play();
+
+                }
+
+                gameEngine.triggerPopup(
+
+                    won ? "CHAMPIONS!" : "DEFEATED",
+
+                    won ? `You won the ${gameEngine.state.matchType}! +200 XP` : "The AI was too strong today.",
+
+                    won ? "win-text" : "out-text"
+
+                );
+
+            },
+
+
+
+            triggerPopup: (title, msg, cls) => {
+
+                const pop = document.getElementById('popup');
+
+                const head = document.getElementById('pop-title');
+
+                head.innerText = title;
+
+                head.className = cls;
+
+                document.getElementById('pop-msg').innerText = msg;
+
+                pop.classList.add('active');
+
+            },
+
+
+
+            closePopup: () => {
+
+                document.getElementById('popup').classList.remove('active');
+
+                if (gameEngine.state.isOver) {
+
+                    gameEngine.showScreen('scr-hub');
+
+                }
+
+            },
+
+
+
+            renderLeaderboard: () => {
+
+                const players = [
+
+                    {name: "Virat_K", xp: 9800},
+
+                    {name: "Babar_56", xp: 8400},
+
+                    {name: gameEngine.state.user, xp: gameEngine.state.xp},
+
+                    {name: "Sky_360", xp: 5200},
+
+                    {name: "Warner_31", xp: 4100}
+
+                ].sort((a,b) => b.xp - a.xp);
+
+
+
+                document.getElementById('leaderboard-target').innerHTML = players.map((p, i) => `
+
+                    <div class="lb-row">
+
+                        <span>#${i+1} ${p.name}</span>
+
+                        <span style="color:var(--gold)">${p.xp} XP</span>
+
+                    </div>
+
+                `).join('');
+
             }
 
-        }
+        };
 
 
 
-        function showFinale(win) {
+        // Live User Counter Simulation
 
-            const modal = document.getElementById('result-modal');
+        setInterval(() => {
 
-            const title = document.getElementById('res-title');
+            const count = 1290000 + Math.floor(Math.random() * 5000);
 
-            modal.style.display = 'flex';
+            document.getElementById('live-users').innerText = `USERS: ${count.toLocaleString()}`;
 
-            title.innerText = win ? "VICTORY" : "DEFEAT";
-
-            title.style.color = win ? "var(--gold)" : "var(--red)";
-
-            document.getElementById('res-score-summary').innerText = `Final Target: ${target}`;
-
-        }
+        }, 3000);
 
     </script>
 
